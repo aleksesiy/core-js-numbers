@@ -50,7 +50,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / +2;
+  return (value1 + value2) / 2;
 }
 
 /**
@@ -68,8 +68,10 @@ function getAverage(value1, value2) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  const xx = Math.abs(x1) + Math.abs(x2);
+  const yy = Math.abs(y1) + Math.abs(y2);
+  return Math.sqrt(xx ** 2 + yy ** 2);
 }
 
 /**
@@ -124,7 +126,7 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  */
 function getLastDigit(value) {
   const str = value.toString();
-  return str[str.length];
+  return +str[str.length];
 }
 
 /**
@@ -352,7 +354,7 @@ function toExponential(/* number, fractionDigits */) {
  * 12.345, 1   => '12.3'
  */
 function toFixed(number, fractionDigits) {
-  return number.Math.Round(fractionDigits);
+  return number.toFixed(fractionDigits);
 }
 
 /**
@@ -521,7 +523,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  return number.toFixed(1);
+  return Math.trunc(number);
 }
 
 /**
@@ -582,8 +584,8 @@ function getRandomInteger(/* min, max */) {
  * @example:
  * 3, 4 => 5
  */
-function getHypotenuse(/* a, b */) {
-  throw new Error('Not implemented');
+function getHypotenuse(a, b) {
+  return Math.hypot(a, b);
 }
 
 /**
@@ -599,10 +601,13 @@ function getHypotenuse(/* a, b */) {
  * 10 => 5
  * 15 => 8
  */
-function getCountOfOddNumbers(/* number */) {
-  throw new Error('Not implemented');
+function getCountOfOddNumbers(number) {
+  let result = 0;
+  for (let i = 1; i <= number; i += 2) {
+    result += 1;
+  }
+  return result;
 }
-
 module.exports = {
   getRectangleArea,
   getCircleCircumference,
