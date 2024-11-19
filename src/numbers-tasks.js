@@ -125,8 +125,8 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const str = value.toString();
-  return +str[str.length - 1];
+  const x = value % 10;
+  return x;
 }
 
 /**
@@ -229,8 +229,11 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (+value === parseInt(value, 10)) {
+    return parseInt(value, 10);
+  }
+  return def;
 }
 
 /**
@@ -365,8 +368,8 @@ function numberToStringInBase(number, base) {
  * @example:
  * 12345, 2    => '1.23e+4'
  */
-function toExponential(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toExponential(number, fractionDigits) {
+  return Number.parseFloat(number).toExponential(fractionDigits);
 }
 
 /**
@@ -396,8 +399,8 @@ function toFixed(number, fractionDigits) {
  * 12345, 7    => '12345.00'
  * 12.345, 4   => '12.35'
  */
-function toPrecision(/* number, precision */) {
-  throw new Error('Not implemented');
+function toPrecision(number, precision) {
+  return number.toPrecision(precision);
 }
 
 /**
@@ -459,6 +462,9 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
+  if (Number.isNaN(Number.parseFloat(str))) {
+    return NaN;
+  }
   return parseFloat(str);
 }
 
@@ -477,7 +483,11 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(parseFloat(str), base);
+  const parsed = Number.parseInt(str, base);
+  if (Number.isNaN(parsed)) {
+    return NaN;
+  }
+  return parsed;
 }
 
 /**
